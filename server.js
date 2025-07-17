@@ -1,17 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 
 const userRoutes = require('./routes/userRoutes');
+const roleRoutes = require('./routes/roleRoutes');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json()); // replaces body-parser
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -23,6 +23,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/roles', roleRoutes);
 
 // Start server
 app.listen(PORT, () => {
