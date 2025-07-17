@@ -22,7 +22,7 @@ exports.createRole = async (req, res) => {
 // Get all roles
 exports.getAllRoles = async (req, res) => {
   try {
-    const roles = await Role.find().populate('parentRole childRoles');
+    const roles = await Role.find().populate('parentRole');
     res.json(roles);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -32,7 +32,7 @@ exports.getAllRoles = async (req, res) => {
 // Get role by ID
 exports.getRoleById = async (req, res) => {
   try {
-    const role = await Role.findById(req.params.id).populate('parentRole childRoles');
+    const role = await Role.findById(req.params.id).populate('parentRole');
     if (!role) return res.status(404).json({ message: 'Role not found' });
     res.json(role);
   } catch (err) {
@@ -110,7 +110,7 @@ exports.removeChildRole = async (req, res) => {
   }
 };
 
-const getRoleIdByName = async (req, res) => {
+exports.getRoleIdByName = async (req, res) => {
   try {
     const { name } = req.params;
     const role = await Role.findOne({ name });

@@ -97,7 +97,7 @@ exports.removeRole = async (req, res) => {
   }
 };
 
-const getUserIdByUsername = async (req, res) => {
+exports.getUserIdByUsername = async (req, res) => {
   try {
     const { username } = req.params;
     const user = await User.findOne({ username });
