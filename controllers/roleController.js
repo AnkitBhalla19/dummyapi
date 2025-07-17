@@ -109,3 +109,16 @@ exports.removeChildRole = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+const getRoleIdByName = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const role = await Role.findOne({ name });
+    if (!role) {
+      return res.status(404).json({ error: 'Role not found' });
+    }
+    res.json({ roleId: role._id });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};

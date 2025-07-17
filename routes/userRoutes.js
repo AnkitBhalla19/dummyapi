@@ -9,5 +9,7 @@ router.patch('/:id', userController.updateUser); // 🔄 was PUT
 router.delete('/:id', userController.deleteUser);
 router.patch('/:id/assign-roles', userController.assignRoles); // 🔄 was PUT
 router.patch('/:id/remove-role', userController.removeRole);   // 🔄 was DELETE
+router.get('/id/:username', getUserIdByUsername);
+
 
 module.exports = router;
