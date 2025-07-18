@@ -32,6 +32,10 @@ exports.getAllRoles = async (req, res) => {
 // Get role by ID
 exports.getRoleById = async (req, res) => {
   try {
+    const idAsInt = parseInt(req.params.id, 10);
+    if (isNaN(idAsInt)) { 
+      return res.status(400).json({ message: 'Invalid role ID' });
+    }
     const role = await Role.findById(req.params.id).populate('parentRole');
     if (!role) return res.status(404).json({ message: 'Role not found' });
     res.json(role);
