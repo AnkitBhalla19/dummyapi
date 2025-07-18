@@ -29,6 +29,10 @@ exports.getAllUsers = async (req, res) => {
 // Get single user by ID
 exports.getUserById = async (req, res) => {
   try {
+    const idAsInt = parseInt(req.params.id, 10);
+    if (isNaN(idAsInt)) {
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
     const user = await User.findById(req.params.id).populate('roles');
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
@@ -100,6 +104,7 @@ exports.removeRole = async (req, res) => {
 exports.getUserIdByUsername = async (req, res) => {
   try {
     const { username } = req.params;
+
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
