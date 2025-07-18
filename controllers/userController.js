@@ -114,3 +114,17 @@ exports.getUserIdByUsername = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+exports.getUserFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};

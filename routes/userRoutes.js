@@ -10,6 +10,6 @@ router.delete('/:id', userController.deleteUser);
 router.patch('/:id/assign-roles', userController.assignRoles); // 🔄 was PUT
 router.patch('/:id/remove-role', userController.removeRole);   // 🔄 was DELETE
 router.get('/id/:username', userController.getUserIdByUsername);
-
+router.get('/username/:username', userController.getUserFromUsername);
 
 module.exports = router;
