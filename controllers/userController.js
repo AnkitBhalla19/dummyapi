@@ -20,7 +20,7 @@ exports.createUser = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find().populate('roles');
-    res.json(users);
+    res.json({message: 'Users retrieved', users });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -35,7 +35,7 @@ exports.getUserById = async (req, res) => {
     }
     const user = await User.findById(req.params.id).populate('roles');
     if (!user) return res.status(404).json({ message: 'User not found' });
-    res.json(user);
+    res.json({message: 'User retrieved', user });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -109,7 +109,7 @@ exports.getUserIdByUsername = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.json({ userId: user._id });
+    res.json({ userId: user._id, message: 'User ID retrieved' });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
@@ -123,7 +123,7 @@ exports.getUserFromUsername = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.json({ user });
+    res.json({ message: 'User retrieved', user });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
